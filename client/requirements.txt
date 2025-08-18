@@ -1,1 +1,3 @@
 websocket
+InquirerPy
+ezcord
