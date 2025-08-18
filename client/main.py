@@ -69,7 +69,7 @@ async def start_menu(player_id: str, websocket):
 
     selected_option = next((opt for opt in options if opt["display_name"] == choice), None)
     if selected_option:
-        ezcord.log.debug(selected_option)
+        ezcord.log.debug(str(selected_option))
         if selected_option.get("input", False):
             input_value = await inquirer.text(
                 message=selected_option["input_placeholder"] or "Enter your input:"
