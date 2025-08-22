@@ -1,3 +1,4 @@
 websocket
 InquirerPy
 ezcord
+rich
