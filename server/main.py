@@ -140,7 +140,7 @@ async def websocket_endpoint(websocket: WebSocket):
                                     "state": lobby.game_state,
                                     "message": "Lobby update",
                                     "lobby_data": lobby_data,
-                                    "logs": [f"Player {player.id} joined the lobby."]
+                                    "logs": [f"Player {player.id} joined the lobby.", "\n    [bold red]CURRENTLY IN DEVELOPMENT[/bold red]\n"]
                                 })
 
                         logger.info(f"Player {player.id} joined private game {lobby.id}")
@@ -154,10 +154,23 @@ async def websocket_endpoint(websocket: WebSocket):
 
     USER_HEARTBEATS.pop(player.id, None)
     CURRENT_USERS.pop(player.id, None)
+
     lobby = await lobby_manager.get_lobby_by_player(player.id)
     if lobby:
         await lobby_manager.leave_lobby(player.id, lobby.id)
         logger.info(f"Player {player.id} left lobby {lobby.id}.")
+
+        lobby_data = {"players": [p.id for p in lobby.players]}
+        for p in lobby.players:
+            ws = CURRENT_USERS.get(p.id)
+            if ws:
+                await ws.send_json({
+                    "lobby_id": lobby.id,
+                    "state": lobby.game_state,
+                    "message": "player_left",
+                    "lobby_data": lobby_data,
+                    "logs": [f"Player {player.id} has left the lobby."]
+                })
     else:
         logger.info(f"Player {player.id} was not in any lobby.")
     logger.info(f"Player {player.id} disconnected.")

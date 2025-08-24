@@ -146,11 +146,6 @@ async def render_private_lobby(lobby_id: str, websocket, players: list[str], log
                 logs.extend(event["logs"])
                 live.update(make_private_lobby_screen(lobby_id, players, logs))
 
-            if event.get("type") == "player_joined":
-                players.append(event["player"])
-                logs.append(f"{event['player']} joined the lobby.")
-                live.update(make_private_lobby_screen(lobby_id, players, logs))
-
             elif event.get("type") == "start":
                 logs.append("Game starting...")
                 live.update(make_private_lobby_screen(lobby_id, players, logs))
@@ -159,10 +154,6 @@ async def render_private_lobby(lobby_id: str, websocket, players: list[str], log
 
             elif event.get("type") == "log":
                 logs.append(event["message"])
-                live.update(make_private_lobby_screen(lobby_id, players, logs))
-
-            elif event.get("message") == "Lobby created":
-                logs.append("Lobby setup confirmed.")
                 live.update(make_private_lobby_screen(lobby_id, players, logs))
 
             else:
