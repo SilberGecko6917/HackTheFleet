@@ -6,6 +6,7 @@ import string
 import time
 from contextlib import asynccontextmanager
 
+import uvicorn
 from fastapi import FastAPI, WebSocket
 
 from .utils import StartMenuOption, LobbyManager
@@ -348,3 +349,6 @@ async def websocket_endpoint(websocket: WebSocket):
     else:
         logger.info(f"Player {player.id} was not in any lobby.")
     logger.info(f"Player {player.id} disconnected.")
+
+if __name__ == '__main__':
+    uvicorn.run(app, host="0.0.0.0", port=8000)
