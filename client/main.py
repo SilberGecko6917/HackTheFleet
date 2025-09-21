@@ -17,7 +17,7 @@ from rich.table import Table
 
 ezcord.set_log(log_level=logging.DEBUG)
 
-BASE_URI = "localhost:8000"
+BASE_URI = "hdf-api.geckotv.me"
 
 console = Console()
 
@@ -564,7 +564,7 @@ async def send_heartbeat(websocket):
 
 
 async def run_client(player_id: str | None = None):
-    uri = f"ws://{BASE_URI}/ws"
+    uri = f"wss://{BASE_URI}/ws"
     try:
         async with websockets.connect(uri) as websocket:
             message = await websocket.recv()
