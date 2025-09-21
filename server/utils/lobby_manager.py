@@ -21,6 +21,7 @@ class LobbyManager:
         lobby_id = self.generate_lobby_id()
         lobby = Lobby(id=lobby_id, isPublic=is_public)
         lobby.add_player(player.id)
+        lobby.owner_id = player.id
         self.lobbies[lobby_id] = lobby
         return lobby
 
