@@ -4,3 +4,9 @@
 venv
 __pycache__
 *.pyc
+
+# PyInstaller output
+*/build/*
+*/dist/*
+*.spec
+*.log
